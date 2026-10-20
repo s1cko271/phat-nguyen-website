@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base reset ─── */
+:root {
+  --color-blue-electric: #0066FF;
+  --color-orange-molten: #FF5500;
+  --color-fissure-core: #FFF6EE;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+}
+
+body {
+  background-color: #050811;
+  color: #D4E4FC;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Selection ─── */
+::selection {
+  background-color: rgba(0, 102, 255, 0.4);
+  color: #FFF6EE;
+}
+
+/* ─── Film grain overlay ─── */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  animation: grain 8s steps(10) infinite;
+  mix-blend-mode: overlay;
+}
+
+/* ─── Cyber CRT Scanline Overlay ─── */
+.cyber-scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.15;
+}
+
+/* ─── Traveling Laser Scanline Beam ─── */
+.cyber-scan-beam {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 9997;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 102, 255, 0.4) 20%,
+    rgba(255, 246, 238, 0.8) 50%,
+    rgba(255, 85, 0, 0.4) 80%,
+    transparent 100%
+  );
+  box-shadow: 0 0 15px rgba(0, 102, 255, 0.5), 0 0 25px rgba(255, 85, 0, 0.5);
+  animation: scan-beam 10s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes scan-beam {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ─── Cyber Chromatic Glitch on Hover ─── */
+.cyber-glitch-text {
+  transition: all 0.2s ease;
+}
+
+.cyber-glitch-text:hover {
+  text-shadow:
+    -2px 0 rgba(0, 102, 255, 0.8),
+    2px 0 rgba(255, 85, 0, 0.8);
+  animation: cyber-jitter 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes cyber-jitter {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 1px); }
+  40% { transform: translate(2px, -1px); }
+  60% { transform: translate(-1px, 2px); }
+  80% { transform: translate(1px, -1px); }
+  100% { transform: translate(0); }
+}
+
+/* ─── Blueprint grid pattern (Blue World) ─── */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(0, 102, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 102, 255, 0.08) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ─── Concrete texture (Orange World) ─── */
+.concrete-texture {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='concrete'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23concrete)' opacity='0.05'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ─── Section index labels ─── */
+.section-index {
+  @apply font-mono text-[11px] uppercase tracking-[0.15em] opacity-40;
+}
+
+/* ─── Signature quote styling ─── */
+.signature-quote {
+  @apply font-display uppercase tracking-tight;
+  text-wrap: balance;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050811;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #0066FF, #FF5500);
+  border-radius: 2px;
+}
+
+/* ─── Focus styles ─── */
+:focus-visible {
+  outline: 2px solid var(--color-blue-electric);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* ─── Vietnamese diacritics safe heading padding ─── */
+.vn-safe-heading {
+  padding-top: 0.22em;
+  padding-bottom: 0.18em;
+  line-height: 1.45 !important;
+  overflow: visible;
+  text-wrap: balance;
+}
+
+@media (min-width: 640px) {
+  .vn-safe-heading {
+    line-height: 1.38 !important;
+  }
+}
+
+/* ─── Cyberpunk Scroll Reveal Enhancements ─── */
+@keyframes cyber-scan-sweep {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.animate-cyber-scan-sweep {
+  animation: cyber-scan-sweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cyber-hud-pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px currentColor);
+  }
+}
+
+.animate-cyber-hud-pulse {
+  animation: cyber-hud-pulse 3s ease-in-out infinite;
+}
+
+/* ─── Holographic Wireframe Border Glow ─── */
+.cyber-card-glow {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-card-glow:hover {
+  box-shadow: 0 0 25px rgba(0, 102, 255, 0.18), inset 0 0 15px rgba(0, 102, 255, 0.08);
+}
+
+.cyber-card-glow-orange:hover {
+  box-shadow: 0 0 25px rgba(255, 85, 0, 0.18), inset 0 0 15px rgba(255, 85, 0, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain-overlay,
+  .cyber-scan-beam,
+  .cyber-glitch-text:hover,
+  .animate-cyber-scan-sweep,
+  .animate-cyber-hud-pulse {
+    animation: none !important;
+  }
+}
+
